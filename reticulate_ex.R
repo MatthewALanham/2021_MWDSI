@@ -1,7 +1,6 @@
 ################################################################################
 # Reticulate examples
 #
-#
 ################################################################################
 
 # 1) to set up you python environment
@@ -47,22 +46,17 @@ repl_python()
 # exit in the console
 exit
 
-
-
-
-# load in iris dataset
-data("iris")
-d <- iris; rm(iris)
-head(d)
-
-
+################################################################################
+# Calling python files
+################################################################################
+# call a python file simple_plot.py
+reticulate::source_python('C:/Users/Matthew A. Lanham/Desktop/MWDSI/simple_plot.py')
+# call a python file test.py
+reticulate::source_python('C:/Users/Matthew A. Lanham/Desktop/MWDSI/test.py')
 
 
 ################################################################################
-# Predictive Modeling Prototyping with the R caret Package
-# INFORMS Business Analytics Conference, April 2018
-# Matthew A. Lanham
-################################################################################
+# Predictive Modeling Prototyping with the R caret Package on the adult dataset
 ################################################################################
 # Data source: http://archive.ics.uci.edu/ml/datasets/Adult
 # Features:
@@ -106,14 +100,27 @@ names(d) <- c("age","workclass","fnlwgt","education","educationnum",
               "capitalgain","capitalloss","hoursperweek","nativecountry",
               "income")
 rm(myUrl)
+
 # Option B: Load data locally
-getwd()
 d <- read.table(file="adult.csv", header=T, sep="|")
 
 # examine data structure
 str(d)
+d$age <- as.numeric(d$age)
 d$workclass <- as.factor(d$workclass)
+d$fnlwgt <- as.numeric(d$fnlwgt)
 d$education <- as.factor(d$education)
+d$educationnum <- as.numeric(d$educationnum)
+d$maritalstatus <- as.factor(d$maritalstatus)
+d$occupation <- as.factor(d$occupation)
+d$relationship <- as.factor(d$relationship)
+d$race <- as.factor(d$race)
+d$sex <- as.factor(d$sex)
+d$capitalgain <- as.numeric(d$capitalgain)
+d$capitalloss <- as.numeric(d$capitalloss)
+d$hoursperweek <- as.numeric(d$hoursperweek)
+d$nativecountry <- as.factor(d$nativecountry)
+d$income <- as.factor(d$income)
 
 ################################################################################
 # EDA
@@ -337,7 +344,7 @@ myModel1 <- train(y ~ .,               # model specification
 )
 myModel1
 
-# train a logistic regession on down-sampled train set 
+# train a logistic regression on down-sampled train set 
 myModel2 <- train(y ~ .,               # model specification
                   data = dnTrain,        # train set used to build model
                   method = "glm",      # type of model you want to build
