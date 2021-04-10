@@ -1,0 +1,62 @@
+---
+title: "Reticulate example in R Markdown"
+author: "Matthew A. Lanham"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+Some examples for MWDSI
+
+```{r cars}
+summary(cars)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+library(reticulate)
+plot(pressure)
+```
+
+```{python}
+# here is a python code chunk because it has {python}
+# load in 'iris' dataset from seaborn library
+import seaborn as sns
+iris = sns.load_dataset("iris")
+setosa = iris[iris.species == "setosa"]
+setosa.head()
+```
+
+```{r example2, echo=F}
+# here is a R code chunk because it has an {r}
+# use R to plot dataset from python (e.g. notice py$)
+library(ggplot2)
+library(reticulate)
+(ggplot(py$setosa, aes(sepal_length, sepal_width)) + geom_point())
+```
+
+```{python readdata}
+# here is a python code chunk because it has {python}
+# use pandas to read in the 'adult.csv' dataset
+import pandas as pd
+adult = pd.read_csv("adult.csv", sep='|')
+# view first few rows
+adult.head()
+```
+
+```{r example3, echo=T}
+# here is a R code chunk because it has {r}
+# load in iris dataset from R datasets
+data("iris")
+d <- iris; rm(iris)
+head(d)
+```
+
+
